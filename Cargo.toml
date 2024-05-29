@@ -97,9 +97,9 @@ parquet = { version = "51.0.0", features = ["object_store"] }
 pbjson = { version = "0.6.0" }
 pbjson-build = { version = "0.6.2" }
 pbjson-types = { version = "0.6.0" }
-prost = { version = "0.12.4" }
-prost-build = { version = "0.12.4" }
-prost-types = { version = "0.12.4" }
+prost = { version = "0.12.6" }
+prost-build = { version = "0.12.6" }
+prost-types = { version = "0.12.6" }
 smallvec = { version = "1.13.2", features = ["union"] }
 sqlparser = { version = "0.45.0" }
 tonic = { version = "0.11.0", features = ["tls", "tls-roots"] }
