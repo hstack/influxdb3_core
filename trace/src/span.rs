@@ -2,10 +2,11 @@ use std::{borrow::Cow, sync::Arc};
 use std::{collections::HashMap, time::Duration};
 
 use chrono::{DateTime, Utc};
+use serde::Serialize;
 
 use crate::{ctx::SpanContext, TraceCollector};
 
-#[derive(Debug, Copy, Clone, Eq, PartialEq)]
+#[derive(Debug, Copy, Clone, Eq, PartialEq, Serialize)]
 pub enum SpanStatus {
     Unknown,
     Ok,
@@ -50,7 +51,7 @@ pub enum SpanStatus {
 /// See Also: If you are implementing code that is tracing aware, you may prefer to use
 /// [`SpanRecorder`] as your primary interface.
 ///  
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 pub struct Span {
     pub name: Cow<'static, str>,
 
@@ -136,7 +137,7 @@ impl Span {
     }
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 pub struct SpanEvent {
     pub time: DateTime<Utc>,
 
@@ -163,7 +164,7 @@ impl SpanEvent {
 }
 
 /// Values that can be stored in a Span's metadata and events
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Serialize)]
 pub enum MetaValue {
     String(Cow<'static, str>),
     Float(f64),
@@ -429,6 +430,14 @@ mod tests {
         // Should publish span
         let spans = collector.spans();
         assert_eq!(spans.len(), 1);
+    }
+
+    #[test]
+    fn test_json_serde() {
+        let collector = Arc::new(RingBufferTraceCollector::new(5));
+        let span = make_span(Arc::<RingBufferTraceCollector>::clone(&collector));
+        let json = serde_json::to_string(&span).unwrap();
+        assert!( json.starts_with("{") && json.ends_with("}") );
     }
 
     #[test]

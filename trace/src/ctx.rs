@@ -3,10 +3,11 @@ use std::num::{NonZeroU128, NonZeroU64};
 use std::sync::Arc;
 
 use rand::Rng;
+use serde::Serialize;
 
 use crate::{span::Span, TraceCollector};
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize)]
 pub struct TraceId(pub NonZeroU128);
 
 impl TraceId {
@@ -19,7 +20,7 @@ impl TraceId {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize)]
 pub struct SpanId(pub NonZeroU64);
 
 impl SpanId {
@@ -40,7 +41,7 @@ impl SpanId {
 /// The immutable context of a `Span`
 ///
 /// Importantly this contains all the information necessary to create a child `Span`
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 pub struct SpanContext {
     pub trace_id: TraceId,
 
@@ -53,6 +54,7 @@ pub struct SpanContext {
     /// See <https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/overview.md#links-between-spans>.
     pub links: Vec<(TraceId, SpanId)>,
 
+    #[serde(skip_serializing)]
     pub collector: Option<Arc<dyn TraceCollector>>,
 
     /// If we should also sample based on this context (i.e. emit child spans).
