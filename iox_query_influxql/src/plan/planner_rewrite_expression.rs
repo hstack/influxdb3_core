@@ -434,13 +434,6 @@ fn rewrite_expr(expr: Expr, schema: &IQLSchema<'_>) -> Result<Transformed<Expr>>
                _ => no(expr),
             }
 
-            // If the InfluxQL query used a selector on a tag column,  like `last(tag_col)`
-            // then there will be an indexed field. Convert this to `NULL` as well.
-            Expr::GetIndexedField(GetIndexedField { expr: ref e, .. }) => match e.as_ref() {
-               Expr::Literal(ScalarValue::Null) => yes(lit(ScalarValue::Null)),
-               _ => no(expr),
-            }
-
             //
             // Literals and other expressions are passed through to DataFusion,
             // as it will handle evaluating function calls, etc

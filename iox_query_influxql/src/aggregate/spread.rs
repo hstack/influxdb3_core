@@ -8,6 +8,7 @@ use datafusion::{
     logical_expr::{function::AccumulatorArgs, Signature, TypeSignature, Volatility},
     physical_plan::{expressions::format_state_name, Accumulator},
 };
+use datafusion::logical_expr::function::StateFieldsArgs;
 
 #[derive(Debug)]
 pub(super) struct SpreadUDF {
@@ -51,15 +52,10 @@ impl AggregateUDFImpl for SpreadUDF {
         Ok(Box::new(SpreadAccumulator::new(arg.data_type.clone())?))
     }
 
-    fn state_fields(
-        &self,
-        name: &str,
-        value_type: DataType,
-        _ordering_fields: Vec<arrow::datatypes::Field>,
-    ) -> Result<Vec<arrow::datatypes::Field>> {
+    fn state_fields(&self, args: StateFieldsArgs<'_>) -> Result<Vec<Field>> {
         Ok(vec![
-            Field::new(format_state_name(name, "max"), value_type.clone(), true),
-            Field::new(format_state_name(name, "min"), value_type, true),
+            Field::new(format_state_name(args.name, "max"), args.input_type.clone(), true),
+            Field::new(format_state_name(args.name, "min"), args.input_type.to_owned(), true),
         ])
     }
 }

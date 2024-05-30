@@ -8,6 +8,7 @@ use datafusion::logical_expr::{
 use datafusion::physical_expr::expressions::format_state_name;
 use std::any::Any;
 use std::sync::Arc;
+use datafusion::logical_expr::function::StateFieldsArgs;
 
 #[derive(Debug)]
 pub(super) struct PercentileUDF {
@@ -56,16 +57,11 @@ impl AggregateUDFImpl for PercentileUDF {
         Ok(Box::new(PercentileAccumulator::new(arg.data_type.clone())))
     }
 
-    fn state_fields(
-        &self,
-        name: &str,
-        value_type: DataType,
-        _ordering_fields: Vec<arrow::datatypes::Field>,
-    ) -> Result<Vec<arrow::datatypes::Field>> {
-        let value_list = DataType::List(Arc::new(Field::new("item", value_type, true)));
+    fn state_fields(&self, args: StateFieldsArgs<'_>) ->  Result<Vec<Field>> {
+        let value_list = DataType::List(Arc::new(Field::new("item", args.return_type.to_owned(), true)));
         Ok(vec![
-            Field::new(format_state_name(name, "value"), value_list, true),
-            Field::new(format_state_name(name, "count"), DataType::Float64, true),
+            Field::new(format_state_name(args.name, "value"), value_list, true),
+            Field::new(format_state_name(args.name, "count"), DataType::Float64, true),
         ])
     }
 }

@@ -205,7 +205,7 @@ impl ParquetFileReader {
         // Use datafusion parquet reader to read the metadata from the
         // file.
         let schema = format
-            .infer_schema(&session_state, &object_store, &[object_meta.clone()])
+            .infer_schema(&session_state, &object_store, &[object_meta.clone()], None)
             .await
             .context(InferringSchemaSnafu)?;
 
@@ -241,6 +241,7 @@ impl ParquetFileReader {
             }]],
             statistics,
             projection: None,
+            column_hints: None,
             limit: None,
             table_partition_cols: vec![],
             output_ordering: vec![],

@@ -46,6 +46,7 @@ use schema::{InfluxColumnType, Projection, Schema, TIME_COLUMN_NAME};
 use snafu::{ensure, OptionExt, ResultExt, Snafu};
 use std::collections::{BTreeMap, HashSet as StdHashSet};
 use std::{cmp::Reverse, collections::BTreeSet, sync::Arc};
+use datafusion::functions::core::expr_ext::FieldAccessor;
 
 use crate::scan_plan::ScanPlanBuilder;
 

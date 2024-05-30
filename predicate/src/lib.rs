@@ -427,7 +427,6 @@ impl TreeNodeVisitor for RowBasedVisitor {
             | Expr::Cast { .. }
             | Expr::Column(_)
             | Expr::Exists { .. }
-            | Expr::GetIndexedField { .. }
             | Expr::InList { .. }
             | Expr::InSubquery { .. }
             | Expr::IsFalse(_)

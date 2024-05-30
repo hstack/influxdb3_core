@@ -276,6 +276,7 @@ pub fn chunks_to_physical_nodes(
             file_groups,
             statistics,
             projection: None,
+            column_hints: None,
             limit: None,
             table_partition_cols,
             output_ordering,

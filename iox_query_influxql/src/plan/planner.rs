@@ -103,6 +103,7 @@ use std::iter;
 use std::ops::{Bound, ControlFlow, Deref, Range};
 use std::str::FromStr;
 use std::sync::Arc;
+use datafusion::functions::core::expr_ext::FieldAccessor;
 
 use super::parse_regex;
 use super::util::contains_expr;

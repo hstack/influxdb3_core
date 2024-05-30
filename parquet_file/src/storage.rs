@@ -146,6 +146,7 @@ impl ParquetExecInput {
             }]],
             statistics,
             projection: None,
+            column_hints: None,
             limit: None,
             table_partition_cols: vec![],
             // Parquet files ARE actually sorted but we don't care here since we just construct a `collect` plan.

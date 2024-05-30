@@ -107,6 +107,7 @@ use datafusion::{
     physical_plan::{expressions::format_state_name, Accumulator},
     prelude::SessionContext,
 };
+use datafusion::logical_expr::function::StateFieldsArgs;
 
 mod internal;
 use internal::{Comparison, Selector, Target};
@@ -303,18 +304,13 @@ impl AggregateUDFImpl for SelectorUDAFImpl {
         Ok(accumulator)
     }
 
-    fn state_fields(
-        &self,
-        name: &str,
-        value_type: DataType,
-        _ordering_fields: Vec<arrow::datatypes::Field>,
-    ) -> DataFusionResult<Vec<arrow::datatypes::Field>> {
-        let fields = AggType::try_from_return_type(&value_type)?
+    fn state_fields(&self, args: StateFieldsArgs<'_>) ->  DataFusionResult<Vec<Field>> {
+        let fields = AggType::try_from_return_type(&args.input_type)?
             .state_datatypes()
             .into_iter()
             .enumerate()
             .map(|(i, data_type)| {
-                Field::new(format_state_name(name, &format!("{i}")), data_type, true)
+                Field::new(format_state_name(args.name, &format!("{i}")), data_type, true)
             })
             .collect::<Vec<_>>();
 

@@ -14,6 +14,7 @@ use datafusion::{
     physical_expr::expressions::format_state_name,
     scalar::ScalarValue,
 };
+use datafusion::logical_expr::function::StateFieldsArgs;
 use itertools::Itertools;
 use schema::TIME_DATA_TIMEZONE;
 
@@ -54,13 +55,8 @@ impl AggregateUDFImpl for ModeUDF {
         Ok(Box::new(ModeAccumulator::new(arg.data_type.clone())))
     }
 
-    fn state_fields(
-        &self,
-        name: &str,
-        value_type: DataType,
-        _ordering_fields: Vec<Field>,
-    ) -> Result<Vec<Field>> {
-        let item_list = DataType::List(Arc::new(Field::new("item", value_type.clone(), true)));
+    fn state_fields(&self, args: StateFieldsArgs<'_>) ->  Result<Vec<Field>> {
+        let item_list = DataType::List(Arc::new(Field::new("item", args.input_type.clone(), true)));
         let timestamp_list = DataType::List(Arc::new(Field::new(
             "item",
             DataType::Timestamp(Nanosecond, TIME_DATA_TIMEZONE()),
@@ -68,8 +64,8 @@ impl AggregateUDFImpl for ModeUDF {
         )));
 
         Ok(vec![
-            Field::new(format_state_name(name, "value"), item_list, true),
-            Field::new(format_state_name(name, "timestamp"), timestamp_list, true),
+            Field::new(format_state_name(args.name, "value"), item_list, true),
+            Field::new(format_state_name(args.name, "timestamp"), timestamp_list, true),
         ])
     }
 }
