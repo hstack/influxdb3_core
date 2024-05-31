@@ -2,11 +2,11 @@ use std::{borrow::Cow, sync::Arc};
 use std::{collections::HashMap, time::Duration};
 
 use chrono::{DateTime, Utc};
-use serde::Serialize;
+use serde::{Serialize, Deserialize};
 
 use crate::{ctx::SpanContext, TraceCollector};
 
-#[derive(Debug, Copy, Clone, Eq, PartialEq, Serialize)]
+#[derive(Debug, Copy, Clone, Eq, PartialEq, Serialize, Deserialize)]
 pub enum SpanStatus {
     Unknown,
     Ok,
@@ -51,7 +51,7 @@ pub enum SpanStatus {
 /// See Also: If you are implementing code that is tracing aware, you may prefer to use
 /// [`SpanRecorder`] as your primary interface.
 ///  
-#[derive(Debug, Clone, Serialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Span {
     pub name: Cow<'static, str>,
 
@@ -137,7 +137,7 @@ impl Span {
     }
 }
 
-#[derive(Debug, Clone, Serialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SpanEvent {
     pub time: DateTime<Utc>,
 
@@ -164,7 +164,7 @@ impl SpanEvent {
 }
 
 /// Values that can be stored in a Span's metadata and events
-#[derive(Debug, Clone, PartialEq, Serialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub enum MetaValue {
     String(Cow<'static, str>),
     Float(f64),
