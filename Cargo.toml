@@ -86,14 +86,14 @@ edition = "2021"
 license = "MIT OR Apache-2.0"
 
 [workspace.dependencies]
-arrow = { version = "51.0.0", features = ["prettyprint", "chrono-tz"] }
-arrow-buffer = { version = "51.0.0" }
-arrow-flight = { version = "51.0.0", features = ["flight-sql-experimental"] }
-datafusion = { git = 'https://github.com/hstack/arrow-datafusion.git', branch = 'branch-38' }
-datafusion-proto = { git = 'https://github.com/hstack/arrow-datafusion.git', branch = 'branch-38' }
+arrow = { version = "52.0.0", features = ["prettyprint", "chrono-tz"] }
+arrow-buffer = { version = "52.0.0" }
+arrow-flight = { version = "52.0.0", features = ["flight-sql-experimental"] }
+datafusion = { path = "../arrow-datafusion/datafusion/core" }
+datafusion-proto = { path = "../arrow-datafusion/datafusion/proto" }
 hashbrown = { version = "0.14.5" }
-object_store = { version = "0.9.1" }
-parquet = { version = "51.0.0", features = ["object_store"] }
+object_store = { version = "0.10.1" }
+parquet = { version = "52.0.0", features = ["object_store"] }
 pbjson = { version = "0.6.0" }
 pbjson-build = { version = "0.6.2" }
 pbjson-types = { version = "0.6.0" }
@@ -157,12 +157,20 @@ opt-level = 3
 opt-level = 3
 
 # patch arrow-flight crate to allow for prepared statement parameters
-# see related arrow-rs PR https://github.com/apache/arrow-rs/pull/5433
 [patch.crates-io]
-arrow-array = { git = "https://github.com/influxdata/arrow-rs.git", rev = "ea454d74707357731535d4bf20e9508e838f5f5d" }
-arrow-schema = { git = "https://github.com/influxdata/arrow-rs.git", rev = "ea454d74707357731535d4bf20e9508e838f5f5d" }
-arrow-data = { git = "https://github.com/influxdata/arrow-rs.git", rev = "ea454d74707357731535d4bf20e9508e838f5f5d" }
-arrow-buffer = { git = "https://github.com/influxdata/arrow-rs.git", rev = "ea454d74707357731535d4bf20e9508e838f5f5d" }
-arrow-ipc = { git = "https://github.com/influxdata/arrow-rs.git", rev = "ea454d74707357731535d4bf20e9508e838f5f5d" }
-arrow-flight = { git = "https://github.com/influxdata/arrow-rs.git", rev = "ea454d74707357731535d4bf20e9508e838f5f5d" }
-parquet = { git = "https://github.com/influxdata/arrow-rs.git", rev = "ea454d74707357731535d4bf20e9508e838f5f5d" }
+datafusion = { git = 'https://github.com/hstack/arrow-datafusion.git', branch = 'branch-39' }
+datafusion-common = { git = 'https://github.com/hstack/arrow-datafusion.git', branch = 'branch-39' }
+datafusion-common-runtime = { git = 'https://github.com/hstack/arrow-datafusion.git', branch = 'branch-39' }
+datafusion-execution = { git = 'https://github.com/hstack/arrow-datafusion.git', branch = 'branch-39' }
+datafusion-expr = { git = 'https://github.com/hstack/arrow-datafusion.git', branch = 'branch-39' }
+datafusion-functions = { git = 'https://github.com/hstack/arrow-datafusion.git', branch = 'branch-39' }
+datafusion-functions-aggregate = { git = 'https://github.com/hstack/arrow-datafusion.git', branch = 'branch-39' }
+datafusion-functions-array = { git = 'https://github.com/hstack/arrow-datafusion.git', branch = 'branch-39' }
+datafusion-optimizer = { git = 'https://github.com/hstack/arrow-datafusion.git', branch = 'branch-39' }
+datafusion-physical-expr = { git = 'https://github.com/hstack/arrow-datafusion.git', branch = 'branch-39' }
+datafusion-physical-expr-common = { git = 'https://github.com/hstack/arrow-datafusion.git', branch = 'branch-39' }
+datafusion-physical-plan = { git = 'https://github.com/hstack/arrow-datafusion.git', branch = 'branch-39' }
+datafusion-proto = { git = 'https://github.com/hstack/arrow-datafusion.git', branch = 'branch-39' }
+datafusion-proto-common = { git = 'https://github.com/hstack/arrow-datafusion.git', branch = 'branch-39' }
+datafusion-sql = { git = 'https://github.com/hstack/arrow-datafusion.git', branch = 'branch-39' }
+datafusion-substrait = { git = 'https://github.com/hstack/arrow-datafusion.git', branch = 'branch-39' }

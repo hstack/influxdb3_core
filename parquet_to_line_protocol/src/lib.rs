@@ -241,7 +241,6 @@ impl ParquetFileReader {
             }]],
             statistics,
             projection: None,
-            column_hints: None,
             limit: None,
             table_partition_cols: vec![],
             output_ordering: vec![],

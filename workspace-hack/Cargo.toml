@@ -20,8 +20,8 @@ workspace = true
 ### BEGIN HAKARI SECTION
 [dependencies]
 ahash = { version = "0.8" }
-arrow-array = { git = "https://github.com/influxdata/arrow-rs.git", rev = "ea454d74707357731535d4bf20e9508e838f5f5d", default-features = false, features = ["chrono-tz"] }
-arrow-ipc = { git = "https://github.com/influxdata/arrow-rs.git", rev = "ea454d74707357731535d4bf20e9508e838f5f5d", features = ["lz4"] }
+arrow-array = { version = "52.0.0", default-features = false, features = ["chrono-tz"] }
+arrow-ipc = { version = "52.0.0", features = ["lz4"] }
 base64 = { version = "0.22" }
 bit-set = { version = "0.5" }
 bit-vec = { version = "0.6" }
@@ -60,7 +60,7 @@ nom = { version = "7" }
 num-bigint = { version = "0.4", default-features = false, features = ["std"] }
 num-integer = { version = "0.1", default-features = false, features = ["i128", "std"] }
 num-traits = { version = "0.2", features = ["i128", "libm"] }
-object_store = { version = "0.9", default-features = false, features = ["aws", "azure", "gcp"] }
+object_store = { version = "0.10.1", default-features = false, features = ["aws", "azure", "gcp"] }
 once_cell = { version = "1", features = ["parking_lot"] }
 parking_lot = { version = "0.12", features = ["arc_lock"] }
 petgraph = { version = "0.6" }
