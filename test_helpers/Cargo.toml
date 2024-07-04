@@ -15,7 +15,7 @@ observability_deps = { path = "../observability_deps" }
 ordered-float = "4.2.0"
 parking_lot = "0.12"
 prometheus-parse = "0.2.5"
-reqwest = { version = "0.12.4", default-features = false, features = ["stream", "rustls-tls-native-roots"] }
+reqwest = { version = "0.12", default-features = false, features = ["stream", "rustls-tls-native-roots"] }
 tempfile = "3.10.1"
 thiserror = "1.0.60"
 tokio = { version = "1.37.0", default_features = false, features = ["time"] }
