@@ -20,8 +20,8 @@ workspace = true
 ### BEGIN HAKARI SECTION
 [dependencies]
 ahash = { version = "0.8" }
-arrow-array = { version = "52.0.0", default-features = false, features = ["chrono-tz"] }
-arrow-ipc = { version = "52.0.0", features = ["lz4"] }
+arrow-array = { version = "52.1.0", default-features = false, features = ["chrono-tz"] }
+arrow-ipc = { version = "52.1.0", features = ["lz4"] }
 base64 = { version = "0.22" }
 bit-set = { version = "0.5" }
 bit-vec = { version = "0.6" }

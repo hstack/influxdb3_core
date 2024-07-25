@@ -13,7 +13,7 @@ base64 = "0.22"
 byteorder = { version = "1", features = ["std"] }
 bytes = "1.6"
 futures = "0.3"
-http = "0.2"
+http = "1.1.0"
 http-body = "0.4"
 hyper = "0.14"
 pin-project = "1.1"

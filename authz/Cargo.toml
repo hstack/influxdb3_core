@@ -11,7 +11,7 @@ workspace = true
 
 [dependencies]
 backoff = { path = "../backoff" }
-http = {version = "0.2.11", optional = true }
+http = {version = "1.1.0", optional = true }
 iox_time = { version = "0.1.0", path = "../iox_time" }
 generated_types = { path = "../generated_types" }
 metric = { version = "0.1.0", path = "../metric" }
